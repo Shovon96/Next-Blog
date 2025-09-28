@@ -3,9 +3,11 @@ import Hero from "@/components/modules/Home/Hero";
 import { IPost } from "@/types";
 
 export default async function HomePage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post`, {
+    next: { revalidate: 60 },
+  });
   const { data: posts } = await res.json();
-  
+
   return (
     <div>
       <Hero />

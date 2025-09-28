@@ -2,7 +2,9 @@ import BlogCard from "@/components/modules/Blogs/BlogCard";
 import { IPost } from "@/types";
 
 const AllBlogsPage = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post`, {
+    cache: "no-store"
+  });
   const { data: posts } = await res.json();
   return (
     <div className="py-30 px-4 max-w-7xl mx-auto">

@@ -1,7 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 
-export default async function BlogDetailsCard({ blog }: { blog: any }) {
+
+export interface Author {
+  name: string;
+  picture: string | null;
+  status: 'ACTIVE' | 'INACTIVE';
+  isVerified: boolean;
+  createdAt: string
+}
+
+export interface IBlogPost {
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  isFeatured: boolean;
+  tags: string[];
+  views: number;
+  authorId: number;
+  author: Author;
+  createdAt: string
+}
+
+
+
+export default async function BlogDetailsCard({ blog }: { blog: IBlogPost }) {
   if (!blog) {
     return (
       <div className="py-20 text-center text-gray-500">Blog not found.</div>
