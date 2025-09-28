@@ -1,6 +1,13 @@
 import BlogCard from "@/components/modules/Blogs/BlogCard";
 import { IPost } from "@/types";
 
+export const generateMetadata = async () => {
+    return {
+        title: "All Blogs",
+        description: "A simple blog built with Next.js, Tailwind CSS, and shadcn/ui."
+    }
+}
+
 const AllBlogsPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post`, {
     cache: "no-store"
