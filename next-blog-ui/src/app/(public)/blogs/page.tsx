@@ -18,7 +18,7 @@ const AllBlogsPage = async () => {
       <h2 className="text-center text-4xl font-bold">All Blogs</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto my-8">
         {
-          posts.slice(0, 3)?.map((post: IPost) => (
+          posts?.map((post: IPost) => (
             <BlogCard key={post?.id} post={post} />
           ))
         }

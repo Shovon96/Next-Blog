@@ -1,9 +1,10 @@
-import React from "react";
+import CreateBlogForm from "@/components/modules/Blogs/CreateBlogForm";
 
 const CreateBlog = () => {
   return (
-    <div>
-      <h1 className="text-center text-xl">Create Blog</h1>
+    <div className="w-full mx-auto pb-12">
+      <h1 className="text-4xl font-semibold text-gray-700 text-center p-8">Create a Blog</h1>
+      <CreateBlogForm />
     </div>
   );
 };
