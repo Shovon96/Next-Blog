@@ -3,10 +3,22 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Home, PlusCircle, LogOut } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Sidebar() {
+
+  const session = useSession()
+
   return (
     <aside className="flex min-h-screen w-64 flex-col border-r bg-black text-white">
+      <div className="flex justify-start items-center gap-4 mt-3">
+        <img
+          src={session?.data?.user?.image || "https://via.placeholder.com/100"}
+          alt="User Avatar"
+          className="w-8 h-8 rounded-full border"
+        />
+        <p className="font-bold text-lg">{session.data?.user?.name}</p>
+      </div>
       {/* Top navigation */}
       <nav className="flex-1 space-y-2 p-4">
         <Link
@@ -28,16 +40,16 @@ export default function Sidebar() {
 
       {/* Bottom action */}
       <div className="p-4 border-t border-gray-500">
-        <Button
-          variant="destructive"
-          className="w-full justify-start gap-2 cursor-pointer"
-          onClick={() => {
-            console.log("Logout clicked");
-          }}
-        >
-          <LogOut className="h-4 w-4" />
-          Logout
-        </Button>
+        {
+          session.status === "authenticated" && <Button
+            variant="destructive"
+            className="w-full justify-start gap-2 cursor-pointer"
+            onClick={() => signOut()}
+          >
+            <LogOut className="h-4 w-4" />
+            Logout
+          </Button>
+        }
       </div>
     </aside>
   );
