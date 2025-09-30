@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
@@ -13,16 +13,19 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
+import { register } from "@/actions/auth";
+import { toast } from "sonner";
+import { useRouter } from "next/router";
 
-type RegisterFormValues = {
-    name: string;
-    email: string;
-    phone: string;
-    password: string;
-};
+// type RegisterFormValues = {
+//     name: string;
+//     email: string;
+//     phone: string;
+//     password: string;
+// };
 
 export default function RegisterForm() {
-    const form = useForm<RegisterFormValues>({
+    const form = useForm<FieldValues>({
         defaultValues: {
             name: "",
             email: "",
@@ -31,8 +34,18 @@ export default function RegisterForm() {
         },
     });
 
-    const onSubmit = (values: RegisterFormValues) => {
-        console.log("Form submitted:", values);
+    const router = useRouter()
+    const onSubmit = async (values: FieldValues) => {
+        try {
+            const res = await register(values)
+            if (res.id) {
+                toast.success("User Registered Successfully!!")
+                router.push('/login')
+            }
+        } catch (error) {
+            toast.error("User Registration Failed!!")
+            console.error(error);
+        }
     };
 
     return (
