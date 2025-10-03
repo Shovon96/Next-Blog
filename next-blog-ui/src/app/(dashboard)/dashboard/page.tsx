@@ -1,9 +1,8 @@
-import { authOptions } from "@/helpers/authOptions";
-import { getServerSession } from "next-auth";
+import { getUserSession } from "@/helpers/getUserSession";
 
 const DashboardHomePage = async () => {
 
-  const session = await getServerSession(authOptions)
+  const session = await getUserSession()
   const user = session?.user
   return (
     <div className="mx-auto bg-white shadow-lg rounded-lg p-6 max-h-[300px]" >
