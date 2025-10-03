@@ -15,9 +15,7 @@ import {
 } from "@/components/ui/form";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
-import { login } from "@/actions/auth";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 // type LoginFormValues = {
 //     email: string;
@@ -32,14 +30,20 @@ export default function LoginForm() {
         },
     });
 
-    const router = useRouter()
+    // const router = useRouter()
     const onSubmit = async (values: FieldValues) => {
         try {
-            const res = await login(values)
-            if (res.id) {
-                toast.success("User Logged In Successfully!!")
-                router.push('/')
-            }
+            // const res = await login(values)
+            // if (res.id) {
+            //     toast.success("User Logged In Successfully!!")
+            //     router.push('/')
+            // }
+
+            signIn("credentials", {
+                ...values,
+                callbackUrl: "/"
+            });
+            console.log(values)
         } catch (error) {
             toast.error("User Loging Failed!!")
             console.error(error);
